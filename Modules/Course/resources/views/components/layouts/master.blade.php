@@ -16,7 +16,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
+    <script src="{{asset('system-files/jquery-3.7.0.min.js')}}" />
     {{-- Vite CSS --}}
     {{-- {{ module_vite('build-course', 'resources/assets/sass/app.scss') }} --}}
     @vite('resources/css/app.css')

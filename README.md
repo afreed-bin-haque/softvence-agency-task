@@ -8,7 +8,18 @@
 ```
 composer install
 php artisan key:generate
-php artisan serve
 npm install
+```
+
+-   Run project by typing
+
+```
+php aritsan abh:run
+```
+
+-   or
+
+```
+php artisan serve
 npm run dev
 ```

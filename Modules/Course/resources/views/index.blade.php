@@ -24,19 +24,5 @@
 
     </div>
     </div>
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>
-        tinymce.init({
-            selector: '#courseSummery',
-            height: 400,
-            menubar: true,
-            plugins: [
-                'advlist autolink lists link image charmap preview anchor',
-                'searchreplace visualblocks code fullscreen',
-                'insertdatetime media table paste code help wordcount'
-            ],
-            toolbar: 'undo redo | formatselect | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media | removeformat | code',
-            content_style: 'body { font-family:Arial,sans-serif; font-size:14px }'
-        });
-    </script>
+
 </x-course::layouts.master>
