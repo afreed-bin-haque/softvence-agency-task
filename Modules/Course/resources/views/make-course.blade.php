@@ -28,13 +28,23 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
                         <div>
                             <label for="level" class="block font-bold mb-2">Level</label>
-                            <input type="text" id="level" name="level" class="border rounded w-full py-2 px-3 focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                            <select id="level" name="level" class="border rounded w-full py-2 px-3 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                <option value="">Select Level</option>
+                                <option value="Beginner">Beginner</option>
+                                <option value="Intermediate">Intermediate</option>
+                                <option value="Advanced">Advanced</option>
+                            </select>
                         </div>
                         <div>
                             <label for="category" class="block font-bold mb-2">Category</label>
                             <select id="category" name="category" class="border rounded w-full py-2 px-3 focus:ring-2 focus:ring-blue-500 focus:outline-none">
                                 <option value="">Select Category</option>
-                                <option value="Hard">Hard</option>
+                                <option value="General">General</option>
+                                <option value="Science">Science</option>
+                                <option value="Commerce">Commerce</option>
+                                <option value="Arts">Arts</option>
+                                <option value="Humanities">Humanities</option>
+                                <option value="Mathematics">Mathematics</option>
                             </select>
                         </div>
                         <div>
@@ -74,8 +84,9 @@
                 <input type="text" name="module[${moduleIndex}][content][${contentIndex}][contentTitle]" placeholder="Content Title" class="border rounded w-full py-2 px-3" />
                 <select name="module[${moduleIndex}][content][${contentIndex}][videoSourceType]" class="border rounded w-full py-2 px-3">
                     <option value="">Select Video Source</option>
-                    <option value="youtube">YouTube</option>
-                    <option value="facebook">Facebook</option>
+                    <option value="Youtube">Youtube</option>
+                    <option value="Facebook">Facebook</option>
+                    <option value="Twitch">Twitch</option>
                 </select>
                 <input type="text" name="module[${moduleIndex}][content][${contentIndex}][videoUrl]" placeholder="Video URL" class="border rounded w-full py-2 px-3" />
                 <input type="text" name="module[${moduleIndex}][content][${contentIndex}][videoLength]" placeholder="Video Length HH:MM:SS" class="border rounded w-full py-2 px-3" />
