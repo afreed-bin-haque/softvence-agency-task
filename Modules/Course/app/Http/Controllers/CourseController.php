@@ -18,11 +18,19 @@ class CourseController extends Controller
 
     public function index()
     {
-        return view('course::index');
+        $getCourseList = Course::withCount([
+            'moduleList as module_count',
+            'moduleList as content_count' => function ($query) {
+                $query->withCount('contentList');
+            },
+        ])->paginate(10);
+        return view('course::index', compact('getCourseList'));
     }
 
     public function makeCourse()
     {
+
+
         return view('course::make-course');
     }
 
@@ -36,7 +44,7 @@ class CourseController extends Controller
                 'coursePrice' => 'required|numeric|min:0',
                 'courseSummery' => 'required|string',
                 'featureImage' => 'nullable|file|mimes:png,jpg,jpeg',
-                'featureVideo' => 'nullable|file|mimes:mp4',
+                'featureVideo' => 'nullable|file|mimes:mp4|max:5120',
                 'module' => 'required|array|min:1',
                 'module.*.moduleTile' => 'required|string|max:255',
                 'module.*.content' => 'required|array|min:1',
