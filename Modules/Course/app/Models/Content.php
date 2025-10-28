@@ -14,6 +14,7 @@ class Content extends Model
      * The attributes that are mass assignable.
      */
     protected $fillable = [
+        'module_id',
         'content_title',
         'video_source',
         'video_url',

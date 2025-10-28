@@ -16,10 +16,3 @@ npm install
 ```
 php aritsan abh:run
 ```
-
--   or
-
-```
-php artisan serve
-npm run dev
-```

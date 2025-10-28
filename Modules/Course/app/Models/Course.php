@@ -28,4 +28,8 @@ class Course extends Model
     // {
     //     // return CourseFactory::new();
     // }
+    public function moduleList()
+    {
+        return $this->hasMany(Module::class, 'course_id', 'course_id');
+    }
 }

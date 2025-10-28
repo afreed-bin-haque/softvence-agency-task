@@ -89,7 +89,7 @@
                     <option value="Twitch">Twitch</option>
                 </select>
                 <input type="text" name="module[${moduleIndex}][content][${contentIndex}][videoUrl]" placeholder="Video URL" class="border rounded w-full py-2 px-3" />
-                <input type="text" name="module[${moduleIndex}][content][${contentIndex}][videoLength]" placeholder="Video Length HH:MM:SS" class="border rounded w-full py-2 px-3" />
+                <input type="text" name="module[${moduleIndex}][content][${contentIndex}][videoLength]" placeholder="Video Length HH:MM:SS"  pattern="^([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$" class="border rounded w-full py-2 px-3" />
             </div>
         `;
         }
@@ -137,44 +137,68 @@
             });
         });
 
-        /* $('form').submit(function(e) {
+        $('form').submit(function(e) {
             e.preventDefault();
+            let msg;
+            let valid = true;
+            const courseTitle = $('#courseTitle').val().trim();
+            const level = $('#level').val();
+            const category = $('#category').val();
+            const coursePrice = $('#coursePrice').val().trim();
+            const courseSummery = $('#courseSummery').val().trim();
+            const featureImage = $('#featureImage')[0].files[0];
+            const featureVideo = $('#featureVideo')[0].files[0];
+
+            if (!courseTitle || !level || !category || !coursePrice || !courseSummery) {
+                valid = false;
+                msg = "Please fill all course fields.";
+            }
+            if (featureImage) {
+                const imgExt = ['image/png', 'image/jpeg', 'image/jpg'];
+                if (!imgExt.includes(featureImage.type)) {
+                    valid = false;
+                    msg = "Feature Image must be PNG, JPG, or JPEG.";
+                }
+            }
+
+            if (featureVideo) {
+                if (featureVideo.type !== "video/mp4") {
+                    valid = false;
+                    msg = "Feature Video must be MP4 format.";
+                }
+            }
+            if (!valid) {
+                alert(msg);
+                return;
+            }
             let form = $(this)[0];
             let formData = new FormData(form);
-
-            let payload = {};
-            formData.forEach((value, key) => {
-                if (payload[key]) {
-                    if (!Array.isArray(payload[key])) payload[key] = [payload[key]];
-                    payload[key].push(value);
-                } else {
-                    payload[key] = value;
-                }
-            });
-
-            console.log(payload);
-        }); */
-        $('form').submit(function(e) {
-            e.preventDefault(); // prevent normal form submission
-
-            // Create FormData object from this form
-            let form = $(this)[0]; // get the raw DOM element
-            let formData = new FormData(form); // <--- THIS DEFINES formData
-
             $.ajax({
                 url: '{{ route("course-store") }}',
                 method: "POST",
                 data: formData,
-                processData: false, // important for file uploads
-                contentType: false, // important for file uploads
+                processData: false,
+                contentType: false,
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
                 success: function(response) {
-                    console.log("Course stored successfully:", response);
+                    console.log(response);
+                    if (response.status === true && response.data) {
+                        window.location.href = "{{ route('course.detail', ':id') }}".replace(':id', response.data);
+                    } else {
+                        alert(response.msg || "Something went wrong, please try again.");
+                    }
                 },
                 error: function(xhr) {
-                    console.error("Error storing course:", xhr.responseText);
+
+                    console.error(xhr.responseText);
+                    if (xhr.responseJSON && xhr.responseJSON.msg) {
+                        msg += xhr.responseJSON.msg;
+                    } else {
+                        msg += "Something went wrong";
+                    }
+                    alert(msg);
                 }
             });
         });

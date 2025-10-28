@@ -14,6 +14,7 @@ class Module extends Model
      * The attributes that are mass assignable.
      */
     protected $fillable = [
+        'course_id',
         'module_title'
     ];
     protected $primaryKey = 'module_id';
@@ -22,4 +23,8 @@ class Module extends Model
     // {
     //     // return ModuleFactory::new();
     // }
+    public function contentList()
+    {
+        return $this->hasMany(Content::class, 'module_id', 'module_id');
+    }
 }
